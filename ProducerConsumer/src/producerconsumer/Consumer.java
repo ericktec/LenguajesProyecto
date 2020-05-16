@@ -16,7 +16,7 @@ public class Consumer extends Thread {
     @Override
     public void run() {
         System.out.println("Running Consumer...");
-        char product;
+        String product;
         
         while(this.bandera) {
             product = this.buffer.consume();
@@ -25,13 +25,14 @@ public class Consumer extends Thread {
             
             try {
                 Thread.sleep(1000);
+                
             } catch (InterruptedException ex) {
                 Logger.getLogger(Producer.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }
     
-    void terminar(){
+    void end(){
         this.bandera=false;
     }
 }

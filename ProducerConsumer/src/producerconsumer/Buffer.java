@@ -6,16 +6,16 @@ import java.util.logging.Logger;
 
 public class Buffer {
     
-    private char[] buffer;
+    private String[] buffer;
     private int index;
     
     Buffer(int size) {
-        this.buffer = new char[size];
+        this.buffer = new String[size];
         this.index=-1;
     }
     
-    synchronized char consume() {
-        char product = 0;
+    synchronized String consume() {
+        String product = null;
         
         while(this.index == -1) {
             try {
@@ -25,14 +25,14 @@ public class Buffer {
             }
         }
         product = this.buffer[this.index];
-        this.buffer[this.index] = 0;
+        this.buffer[this.index] = null;
         this.index--;
         notify();
         
         return product;
     }
     
-    synchronized void produce(char product) {
+    synchronized void produce(String product) {
         while(this.index==this.buffer.length-1) {
             try {
                 wait();
