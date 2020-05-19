@@ -16,7 +16,7 @@ public class ProducerConsumer {
     
     
     
-    public ProducerConsumer(int size, int rangeN, int rangeM, int producers, int consumers, int timeout){
+    public ProducerConsumer(int size, int rangeN, int rangeM, int producers, int consumers, int timeoutProducer, int timeoutConsumer){
         this.buffer = new Buffer(size);
         this.size = size;
         this.count = 0;
@@ -24,12 +24,12 @@ public class ProducerConsumer {
         listaTareasRealizadas = new ArrayList<String>();
         this.producers = new ArrayList<>();
         for(int i = 0; i<producers;i++){
-            this.producers.add(new Producer(buffer, rangeN, rangeM, timeout));
+            this.producers.add(new Producer(buffer, rangeN, rangeM, timeoutProducer));
             this.producers.get(i).start();
         }
         this.consumers = new ArrayList<>();
         for(int j = 0; j<consumers;j++){
-            this.consumers.add(new Consumer(buffer, timeout, j));
+            this.consumers.add(new Consumer(buffer, timeoutConsumer, j));
             this.consumers.get(j).start();
         }
         

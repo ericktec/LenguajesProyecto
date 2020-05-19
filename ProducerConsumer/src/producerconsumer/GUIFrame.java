@@ -36,8 +36,8 @@ public class GUIFrame extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
-        timeoutMs = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
+        timeoutProductor = new javax.swing.JTextField();
+        timeoutConsumidor = new javax.swing.JTextField();
         bufferSize = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         valueM = new javax.swing.JSpinner();
@@ -65,15 +65,15 @@ public class GUIFrame extends javax.swing.JFrame {
 
         jLabel5.setText("Tiempo de Espera (ms)");
 
-        timeoutMs.addActionListener(new java.awt.event.ActionListener() {
+        timeoutProductor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                timeoutMsActionPerformed(evt);
+                timeoutProductorActionPerformed(evt);
             }
         });
 
-        jTextField2.addActionListener(new java.awt.event.ActionListener() {
+        timeoutConsumidor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField2ActionPerformed(evt);
+                timeoutConsumidorActionPerformed(evt);
             }
         });
 
@@ -134,8 +134,8 @@ public class GUIFrame extends javax.swing.JFrame {
                 .addGap(28, 28, 28)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(timeoutMs)
-                    .addComponent(jTextField2)
+                    .addComponent(timeoutProductor)
+                    .addComponent(timeoutConsumidor)
                     .addComponent(valueM, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -155,13 +155,13 @@ public class GUIFrame extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(producersValue, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(timeoutMs, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(timeoutProductor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel1))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(consumersValue, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(timeoutConsumidor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel3)
@@ -288,7 +288,8 @@ public class GUIFrame extends javax.swing.JFrame {
             int rangeM =  (int) this.valueM.getValue();
             int producerQuantity = (int) this.producersValue.getValue();
             int consumerQuantity = (int) this.consumersValue.getValue();
-            int timeout = Integer.parseInt(this.timeoutMs.getText());
+            int timeoutProductores = Integer.parseInt(this.timeoutProductor.getText());
+            int timeoutConsumidor = Integer.parseInt(this.timeoutConsumidor.getText());
             
             // limpiar entradas de jtable tareas realizadas
             jTable2.setModel(new javax.swing.table.DefaultTableModel(
@@ -302,19 +303,19 @@ public class GUIFrame extends javax.swing.JFrame {
             jTable2.setRowHeight(20);
             jScrollPane2.setViewportView(jTable2); 
             
-            if(size<=100 && size>0 && (rangeN< rangeM) && rangeN>=0 && rangeM<=9 && producerQuantity>0 && producerQuantity<10 && consumerQuantity>0 && consumerQuantity<10 && timeout>=0 && timeout<=10000 ){
-                this.pc = new ProducerConsumer(size, rangeN, rangeM, producerQuantity, consumerQuantity, timeout);
+            if(size<=100 && size>0 && (rangeN< rangeM) && rangeN>=0 && rangeM<=9 && producerQuantity>0 && producerQuantity<10 && consumerQuantity>0 && consumerQuantity<10 && timeoutProductores>=0 && timeoutProductores<=10000 && timeoutConsumidor>=0 && timeoutConsumidor<=10000 ){
+                this.pc = new ProducerConsumer(size, rangeN, rangeM, producerQuantity, consumerQuantity, timeoutProductores, timeoutConsumidor);
             }else{
                 JOptionPane.showMessageDialog(null, "Valor invalido.");
                 this.bufferSize.setText("");
-                this.timeoutMs.setText("");
+                this.timeoutProductor.setText("");
             }
             
         }catch (NumberFormatException e){
             System.err.println(e);
             JOptionPane.showMessageDialog(null, "Error introduzca un valor numerico");
             this.bufferSize.setText("");
-            this.timeoutMs.setText("");
+            this.timeoutProductor.setText("");
         }
           
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -332,17 +333,17 @@ public class GUIFrame extends javax.swing.JFrame {
         pc.stopProducerConsumer();
     }//GEN-LAST:event_StopButtonActionPerformed
 
-    private void timeoutMsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_timeoutMsActionPerformed
+    private void timeoutProductorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_timeoutProductorActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_timeoutMsActionPerformed
+    }//GEN-LAST:event_timeoutProductorActionPerformed
 
     private void bufferSizeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bufferSizeActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_bufferSizeActionPerformed
 
-    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
+    private void timeoutConsumidorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_timeoutConsumidorActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField2ActionPerformed
+    }//GEN-LAST:event_timeoutConsumidorActionPerformed
 
 
     /**
@@ -404,9 +405,9 @@ public class GUIFrame extends javax.swing.JFrame {
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTable1;
     private static javax.swing.JTable jTable2;
-    private javax.swing.JTextField jTextField2;
     private javax.swing.JSpinner producersValue;
-    private javax.swing.JTextField timeoutMs;
+    private javax.swing.JTextField timeoutConsumidor;
+    private javax.swing.JTextField timeoutProductor;
     private javax.swing.JSpinner valueM;
     private javax.swing.JSpinner valueN;
     // End of variables declaration//GEN-END:variables
