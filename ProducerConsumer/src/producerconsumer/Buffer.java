@@ -8,10 +8,16 @@ public class Buffer {
     
     private String[] buffer;
     private int index;
+    static int count;
     
     Buffer(int size) {
         this.buffer = new String[size];
         this.index=-1;
+        count = 1;
+    }
+    
+    public String[] getBuffer(){
+        return this.buffer;
     }
     
     synchronized String consume() {
@@ -47,7 +53,6 @@ public class Buffer {
         notify();
     }
     
-    static int count = 1;
     synchronized static void print(String string) {
         System.out.print(count++ + " ");
         System.out.println(string);

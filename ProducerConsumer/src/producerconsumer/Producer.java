@@ -10,12 +10,14 @@ public class Producer extends Thread {
     boolean bandera;
     private int numberN;
     private int numberM;
+    private int timeout;
     
-    Producer(Buffer buffer, int numberN, int numberM) {
+    Producer(Buffer buffer, int numberN, int numberM, int timeout) {
         this.buffer = buffer;
         this.bandera=true;
         this.numberN = numberN;
         this.numberM = numberM;
+        this.timeout = timeout;
     }
     
     @Override
@@ -46,7 +48,7 @@ public class Producer extends Thread {
             Buffer.print("Producer produced: " + schemeProcess);
             
             try {
-                Thread.sleep(1000);
+                Thread.sleep(this.timeout);
             } catch (InterruptedException ex) {
                 Logger.getLogger(Producer.class.getName()).log(Level.SEVERE, null, ex);
             }

@@ -1,6 +1,7 @@
 package producerconsumer;
 
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -35,7 +36,7 @@ public class GUIFrame extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        timeoutMs = new javax.swing.JTextField();
         jTextField2 = new javax.swing.JTextField();
         bufferSize = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
@@ -57,12 +58,30 @@ public class GUIFrame extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jProgressBar1 = new javax.swing.JProgressBar();
-        jSpinner4 = new javax.swing.JSpinner();
+        contadorTareasRealizadas = new javax.swing.JSpinner();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
 
         jLabel5.setText("Tiempo de Espera (ms)");
+
+        timeoutMs.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                timeoutMsActionPerformed(evt);
+            }
+        });
+
+        jTextField2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField2ActionPerformed(evt);
+            }
+        });
+
+        bufferSize.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bufferSizeActionPerformed(evt);
+            }
+        });
 
         jLabel6.setText("Rango de Valores (n, m)");
 
@@ -115,7 +134,7 @@ public class GUIFrame extends javax.swing.JFrame {
                 .addGap(28, 28, 28)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jTextField1)
+                    .addComponent(timeoutMs)
                     .addComponent(jTextField2)
                     .addComponent(valueM, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -123,7 +142,7 @@ public class GUIFrame extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 414, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(StopButton, javax.swing.GroupLayout.PREFERRED_SIZE, 414, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 11, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -136,7 +155,7 @@ public class GUIFrame extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(producersValue, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(timeoutMs, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel1))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -189,15 +208,13 @@ public class GUIFrame extends javax.swing.JFrame {
 
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Id", "Operacion"
             }
         ));
+        jTable2.setRowHeight(20);
         jScrollPane2.setViewportView(jTable2);
 
         jLabel7.setText("Tareas por hacer");
@@ -220,7 +237,7 @@ public class GUIFrame extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, 185, Short.MAX_VALUE)
-                    .addComponent(jSpinner4))
+                    .addComponent(contadorTareasRealizadas))
                 .addContainerGap(46, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
@@ -237,7 +254,7 @@ public class GUIFrame extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jSpinner4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(contadorTareasRealizadas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -271,25 +288,61 @@ public class GUIFrame extends javax.swing.JFrame {
             int rangeM =  (int) this.valueM.getValue();
             int producerQuantity = (int) this.producersValue.getValue();
             int consumerQuantity = (int) this.consumersValue.getValue();
+            int timeout = Integer.parseInt(this.timeoutMs.getText());
             
-            if(size<=100 && size>0 && (rangeN< rangeM) && rangeN>=0 && rangeM<=9 && producerQuantity>0 && producerQuantity<10 && consumerQuantity>0 && consumerQuantity<10){
-                this.pc = new ProducerConsumer(size, rangeN, rangeM, producerQuantity, consumerQuantity);
+            // limpiar entradas de jtable tareas realizadas
+            jTable2.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Id", "Operacion"
+            }
+            ));
+            jTable2.setRowHeight(20);
+            jScrollPane2.setViewportView(jTable2); 
+            
+            if(size<=100 && size>0 && (rangeN< rangeM) && rangeN>=0 && rangeM<=9 && producerQuantity>0 && producerQuantity<10 && consumerQuantity>0 && consumerQuantity<10 && timeout>=0 && timeout<=10000 ){
+                this.pc = new ProducerConsumer(size, rangeN, rangeM, producerQuantity, consumerQuantity, timeout);
             }else{
                 JOptionPane.showMessageDialog(null, "Valor invalido.");
                 this.bufferSize.setText("");
+                this.timeoutMs.setText("");
             }
             
         }catch (NumberFormatException e){
             System.err.println(e);
             JOptionPane.showMessageDialog(null, "Error introduzca un valor numerico");
             this.bufferSize.setText("");
+            this.timeoutMs.setText("");
         }
           
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    public static void addTasksCompleted(String product, int id){
+        DefaultTableModel model =  (DefaultTableModel) GUIFrame.jTable2.getModel();
+        Object newRow[] = new Object[2];
+        newRow[0] = id;
+        newRow[1] = product;
+        model.addRow(newRow);
+        GUIFrame.contadorTareasRealizadas.setValue(ProducerConsumer.tareasRealizadas + 1);
+    }
+    
     private void StopButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_StopButtonActionPerformed
         pc.stopProducerConsumer();
     }//GEN-LAST:event_StopButtonActionPerformed
+
+    private void timeoutMsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_timeoutMsActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_timeoutMsActionPerformed
+
+    private void bufferSizeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bufferSizeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_bufferSizeActionPerformed
+
+    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField2ActionPerformed
 
 
     /**
@@ -332,6 +385,7 @@ public class GUIFrame extends javax.swing.JFrame {
     private javax.swing.JButton StopButton;
     private javax.swing.JTextField bufferSize;
     private javax.swing.JSpinner consumersValue;
+    private static javax.swing.JSpinner contadorTareasRealizadas;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -347,13 +401,12 @@ public class GUIFrame extends javax.swing.JFrame {
     private javax.swing.JProgressBar jProgressBar1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JSpinner jSpinner4;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTable2;
-    private javax.swing.JTextField jTextField1;
+    private static javax.swing.JTable jTable2;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JSpinner producersValue;
+    private javax.swing.JTextField timeoutMs;
     private javax.swing.JSpinner valueM;
     private javax.swing.JSpinner valueN;
     // End of variables declaration//GEN-END:variables

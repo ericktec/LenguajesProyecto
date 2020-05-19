@@ -99,7 +99,7 @@
                           <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
                               <Component id="jLabel5" max="32767" attributes="0"/>
-                              <Component id="jTextField1" alignment="0" max="32767" attributes="0"/>
+                              <Component id="timeoutMs" alignment="0" max="32767" attributes="0"/>
                               <Component id="jTextField2" alignment="0" max="32767" attributes="0"/>
                               <Component id="valueM" min="-2" pref="109" max="-2" attributes="0"/>
                           </Group>
@@ -110,7 +110,7 @@
                               <Component id="jButton1" alignment="0" min="-2" pref="414" max="-2" attributes="0"/>
                               <Component id="StopButton" alignment="0" min="-2" pref="414" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace min="0" pref="11" max="32767" attributes="0"/>
+                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -126,7 +126,7 @@
                           <Group type="103" groupAlignment="1" attributes="0">
                               <Group type="103" alignment="1" groupAlignment="3" attributes="0">
                                   <Component id="producersValue" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jTextField1" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="timeoutMs" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                           </Group>
@@ -162,11 +162,20 @@
                     <Property name="text" type="java.lang.String" value="Tiempo de Espera (ms)"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JTextField" name="jTextField1">
+                <Component class="javax.swing.JTextField" name="timeoutMs">
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="timeoutMsActionPerformed"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JTextField" name="jTextField2">
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextField2ActionPerformed"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JTextField" name="bufferSize">
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bufferSizeActionPerformed"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel6">
                   <Properties>
@@ -256,7 +265,7 @@
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
                           <Component id="jScrollPane2" pref="0" max="32767" attributes="0"/>
                           <Component id="jLabel8" pref="185" max="32767" attributes="0"/>
-                          <Component id="jSpinner4" max="32767" attributes="0"/>
+                          <Component id="contadorTareasRealizadas" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace pref="46" max="32767" attributes="0"/>
                   </Group>
@@ -278,7 +287,7 @@
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="jProgressBar1" min="-2" pref="20" max="-2" attributes="0"/>
-                          <Component id="jSpinner4" min="-2" max="-2" attributes="0"/>
+                          <Component id="contadorTareasRealizadas" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="32767" attributes="0"/>
                   </Group>
@@ -311,14 +320,16 @@
                 <Component class="javax.swing.JTable" name="jTable2">
                   <Properties>
                     <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                      <Table columnCount="4" rowCount="4">
-                        <Column editable="true" title="Title 1" type="java.lang.Object"/>
-                        <Column editable="true" title="Title 2" type="java.lang.Object"/>
-                        <Column editable="true" title="Title 3" type="java.lang.Object"/>
-                        <Column editable="true" title="Title 4" type="java.lang.Object"/>
+                      <Table columnCount="2" rowCount="0">
+                        <Column editable="true" title="Id" type="java.lang.Object"/>
+                        <Column editable="true" title="Operacion" type="java.lang.Object"/>
                       </Table>
                     </Property>
+                    <Property name="rowHeight" type="int" value="20"/>
                   </Properties>
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="10"/>
+                  </AuxValues>
                 </Component>
               </SubComponents>
             </Container>
@@ -337,7 +348,10 @@
                 <Property name="value" type="int" value="50"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JSpinner" name="jSpinner4">
+            <Component class="javax.swing.JSpinner" name="contadorTareasRealizadas">
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="10"/>
+              </AuxValues>
             </Component>
           </SubComponents>
         </Container>
