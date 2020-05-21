@@ -30,16 +30,9 @@ public class Buffer {
                 Logger.getLogger(Buffer.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        product = this.buffer[this.index];
-        this.buffer[this.index] = null;
-        this.index--;
-        
-        double percentage =((this.index+1)/((double) this.buffer.length))*100;
-        System.out.println("porcentaje: %"+percentage);
-        GUIFrame.setProgressBar((int)percentage);
-        GUIFrame.removeTasksPending(product, this.index);
+        // Run
+        product = turn(false, "", 0);
         notify();
-        
         return product;
     }
     
@@ -51,19 +44,28 @@ public class Buffer {
                 Logger.getLogger(Buffer.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        this.index++;
-        this.buffer[this.index] = product;
-       
-        GUIFrame.addTasksPending(product, this.index);
-        
-        
-        
-        double percentage =((this.index+1)/((double) this.buffer.length))*100;
-        System.out.println("porcentaje: %"+percentage);
-        GUIFrame.setProgressBar((int)percentage);
-        
-        
+        // Run
+        turn(true, product, idProducer);
         notify();
+    }
+    synchronized String turn(boolean isProducer, String product, int idProducer){
+        if (isProducer){
+            this.index++;
+            this.buffer[this.index] = product;
+            GUIFrame.addTasksPending(product, idProducer);
+            double percentage =((this.index+1)/((double) this.buffer.length))*100;
+            System.out.println("porcentaje: %"+percentage);
+            GUIFrame.setProgressBar((int)percentage);
+        } else { // Consumer
+            product = this.buffer[this.index];
+            this.buffer[this.index] = null;
+            this.index--;
+            double percentage =((this.index+1)/((double) this.buffer.length))*100;
+            System.out.println("porcentaje: %"+percentage);
+            GUIFrame.setProgressBar((int)percentage);
+            GUIFrame.removeTasksPending(product, this.index);
+        }
+        return product;
     }
     
     synchronized static void print(String string) {

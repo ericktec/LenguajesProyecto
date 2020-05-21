@@ -349,7 +349,8 @@ public class GUIFrame extends javax.swing.JFrame {
     public static void removeTasksPending(String product, int id){
         DefaultTableModel model =  (DefaultTableModel) GUIFrame.jTable1.getModel();
         for(int i=model.getRowCount()-1;i>=0;i--){
-            if(((String)model.getValueAt(i, 1)).equals(product) && ((int)model.getValueAt(i, 0))==(id+1)){
+            if(((String)model.getValueAt(i, 1)).equals(product)){
+                System.out.println("-----------------test "+model.getValueAt(i, 1)+ "equal to "+product);
                 model.removeRow(i);
                 break;
             }

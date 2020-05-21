@@ -24,11 +24,11 @@ public class Consumer extends Thread {
         
         while(this.bandera) {
             product = this.buffer.consume();
-            //System.out.println("Consumer consumed: " + product);
             Buffer.print("Consumer consumed: " + product);
             String tareaRealizada = "{operacion:" + product + ", id: "+this.id+"}";
+            System.out.println(tareaRealizada);
             ProducerConsumer.listaTareasRealizadas.add(tareaRealizada);
-            GUIFrame.addTasksCompleted(product, id);
+            GUIFrame.addTasksCompleted(product, this.id);
             System.out.println("Total de tareas realizadas: " + ++ProducerConsumer.tareasRealizadas);
             
             try {

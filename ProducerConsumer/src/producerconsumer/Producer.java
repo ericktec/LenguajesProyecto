@@ -12,6 +12,7 @@ public class Producer extends Thread {
     private int numberM;
     private int timeout;
     private int id;
+    private static Random r = new Random(System.currentTimeMillis());
     
     Producer(Buffer buffer, int numberN, int numberM, int timeout, int id) {
         this.buffer = buffer;
@@ -27,8 +28,6 @@ public class Producer extends Thread {
         System.out.println("Running Producer...");
         String products = "+-*/";
         
-        Random r = new Random(System.currentTimeMillis());
-        Random random = new Random(System.currentTimeMillis());
         int firstValue;
         int secondValue;
         
@@ -38,8 +37,8 @@ public class Producer extends Thread {
         
         while(this.bandera) {
             operation = products.charAt(r.nextInt(4));
-            firstValue = random.nextInt(this.numberM - this.numberN + 1) + this.numberN;
-            secondValue = random.nextInt(this.numberM - this.numberN + 1) + this.numberN;
+            firstValue = r.nextInt(this.numberM - this.numberN + 1) + this.numberN;
+            secondValue = r.nextInt(this.numberM - this.numberN + 1) + this.numberN;
             
             if(divisionExcpetion(operation, secondValue)){
                 secondValue++;
