@@ -13,8 +13,6 @@ public class Producer extends Thread {
     private int timeout;
     private int id;
     
-    
-    
     Producer(Buffer buffer, int numberN, int numberM, int timeout, int id) {
         this.buffer = buffer;
         this.bandera=true;
@@ -47,17 +45,10 @@ public class Producer extends Thread {
                 secondValue++;
             }
             schemeProcess = "("+ operation +" "+firstValue+ " "+secondValue+")";
-            int bufferPos = this.buffer.produce(schemeProcess);
+            this.buffer.produce(schemeProcess, this.id);
             //System.out.println("Producer produced: " + product);
-            Buffer.print("Producer number "+this.id+" produced: " + schemeProcess);
-            System.out.println("Total de tareas producidas: " + ++ProducerConsumer.tareasProducidas);
+            Buffer.print("Producer produced: " + schemeProcess);
             
-            
-            GUIFrame.addPendientes(bufferPos, schemeProcess);
-            
-            
-            
-           
             
             try {
                 Thread.sleep(this.timeout);

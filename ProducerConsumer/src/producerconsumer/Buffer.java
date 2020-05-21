@@ -33,30 +33,37 @@ public class Buffer {
         product = this.buffer[this.index];
         this.buffer[this.index] = null;
         this.index--;
+        
+        double percentage =((this.index+1)/((double) this.buffer.length))*100;
+        System.out.println("porcentaje: %"+percentage);
+        GUIFrame.setProgressBar((int)percentage);
+        GUIFrame.removeTasksPending(product, this.index);
         notify();
         
         return product;
     }
     
-    synchronized int produce(String product) {
-        
+    synchronized void produce(String product, int idProducer) {
         while(this.index==this.buffer.length-1) {
             try {
                 wait();
-                
             } catch (InterruptedException ex) {
                 Logger.getLogger(Buffer.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         this.index++;
-        int positionBuffer = this.index;
-        this.buffer[positionBuffer] = product;
+        this.buffer[this.index] = product;
+       
+        GUIFrame.addTasksPending(product, this.index);
         
         
+        
+        double percentage =((this.index+1)/((double) this.buffer.length))*100;
+        System.out.println("porcentaje: %"+percentage);
+        GUIFrame.setProgressBar((int)percentage);
         
         
         notify();
-        return positionBuffer;
     }
     
     synchronized static void print(String string) {

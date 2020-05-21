@@ -29,13 +29,6 @@ public class Consumer extends Thread {
             String tareaRealizada = "{operacion:" + product + ", id: "+this.id+"}";
             ProducerConsumer.listaTareasRealizadas.add(tareaRealizada);
             GUIFrame.addTasksCompleted(product, id);
-            GUIFrame.removePendientes(product);
-            
-           
-            
-            
-           
-            
             System.out.println("Total de tareas realizadas: " + ++ProducerConsumer.tareasRealizadas);
             
             try {
