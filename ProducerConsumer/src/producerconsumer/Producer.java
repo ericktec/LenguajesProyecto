@@ -11,13 +11,15 @@ public class Producer extends Thread {
     private int numberN;
     private int numberM;
     private int timeout;
+    private int id;
     
-    Producer(Buffer buffer, int numberN, int numberM, int timeout) {
+    Producer(Buffer buffer, int numberN, int numberM, int timeout, int id) {
         this.buffer = buffer;
         this.bandera=true;
         this.numberN = numberN;
         this.numberM = numberM;
         this.timeout = timeout;
+        this.id=id;
     }
     
     @Override
@@ -43,9 +45,10 @@ public class Producer extends Thread {
                 secondValue++;
             }
             schemeProcess = "("+ operation +" "+firstValue+ " "+secondValue+")";
-            this.buffer.produce(schemeProcess);
+            this.buffer.produce(schemeProcess, this.id);
             //System.out.println("Producer produced: " + product);
             Buffer.print("Producer produced: " + schemeProcess);
+            
             
             try {
                 Thread.sleep(this.timeout);

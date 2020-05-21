@@ -195,13 +195,10 @@ public class GUIFrame extends javax.swing.JFrame {
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Id", "Producto"
             }
         ));
         jScrollPane1.setViewportView(jTable1);
@@ -303,6 +300,17 @@ public class GUIFrame extends javax.swing.JFrame {
             jTable2.setRowHeight(20);
             jScrollPane2.setViewportView(jTable2); 
             
+            jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Id", "Producto"
+            }
+            ));
+            jTable1.setRowHeight(20);
+            jScrollPane1.setViewportView(jTable1); 
+            
             if(size<=100 && size>0 && (rangeN< rangeM) && rangeN>=0 && rangeM<=9 && producerQuantity>0 && producerQuantity<10 && consumerQuantity>0 && consumerQuantity<10 && timeoutProductores>=0 && timeoutProductores<=10000 && timeoutConsumidor>=0 && timeoutConsumidor<=10000 ){
                 this.pc = new ProducerConsumer(size, rangeN, rangeM, producerQuantity, consumerQuantity, timeoutProductores, timeoutConsumidor);
             }else{
@@ -327,6 +335,31 @@ public class GUIFrame extends javax.swing.JFrame {
         newRow[1] = product;
         model.addRow(newRow);
         GUIFrame.contadorTareasRealizadas.setValue(ProducerConsumer.tareasRealizadas + 1);
+    }
+    
+    public static void addTasksPending(String product, int id){
+        DefaultTableModel model =  (DefaultTableModel) GUIFrame.jTable1.getModel();
+        Object newRow[] = new Object[2];
+        newRow[0] = id;
+        newRow[1] = product;
+        model.addRow(newRow);
+        
+    }
+    
+    public static void removeTasksPending(String product, int id){
+        DefaultTableModel model =  (DefaultTableModel) GUIFrame.jTable1.getModel();
+        for(int i=0;i<model.getRowCount();i++){
+            if(((String)model.getValueAt(i, 1)).equals(product)){
+                System.out.println("-----------------test "+model.getValueAt(i, 1)+ "equal to "+product);
+                model.removeRow(i);
+                i=model.getRowCount();
+            }
+        }
+        
+    }
+    
+    public static void setProgressBar(int n){
+        jProgressBar1.setValue(n);
     }
     
     private void StopButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_StopButtonActionPerformed
@@ -399,11 +432,11 @@ public class GUIFrame extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JProgressBar jProgressBar1;
+    private static javax.swing.JProgressBar jProgressBar1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTable jTable1;
+    private static javax.swing.JTable jTable1;
     private static javax.swing.JTable jTable2;
     private javax.swing.JSpinner producersValue;
     private javax.swing.JTextField timeoutConsumidor;

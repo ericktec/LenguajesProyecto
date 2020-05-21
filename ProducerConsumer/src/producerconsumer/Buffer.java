@@ -33,12 +33,17 @@ public class Buffer {
         product = this.buffer[this.index];
         this.buffer[this.index] = null;
         this.index--;
+        
+        double percentage =((this.index+1)/((double) this.buffer.length))*100;
+        System.out.println("porcentaje: %"+percentage);
+        GUIFrame.setProgressBar((int)percentage);
+        GUIFrame.removeTasksPending(product, this.index);
         notify();
         
         return product;
     }
     
-    synchronized void produce(String product) {
+    synchronized void produce(String product, int idProducer) {
         while(this.index==this.buffer.length-1) {
             try {
                 wait();
@@ -48,6 +53,14 @@ public class Buffer {
         }
         this.index++;
         this.buffer[this.index] = product;
+       
+        GUIFrame.addTasksPending(product, idProducer);
+        
+        
+        
+        double percentage =((this.index+1)/((double) this.buffer.length))*100;
+        System.out.println("porcentaje: %"+percentage);
+        GUIFrame.setProgressBar((int)percentage);
         
         
         notify();

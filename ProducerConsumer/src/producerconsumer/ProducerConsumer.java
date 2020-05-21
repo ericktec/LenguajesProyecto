@@ -24,7 +24,7 @@ public class ProducerConsumer {
         listaTareasRealizadas = new ArrayList<String>();
         this.producers = new ArrayList<>();
         for(int i = 0; i<producers;i++){
-            this.producers.add(new Producer(buffer, rangeN, rangeM, timeoutProducer));
+            this.producers.add(new Producer(buffer, rangeN, rangeM, timeoutProducer, i));
             this.producers.get(i).start();
         }
         this.consumers = new ArrayList<>();
