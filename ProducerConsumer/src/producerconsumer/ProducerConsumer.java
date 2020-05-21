@@ -11,20 +11,21 @@ public class ProducerConsumer {
     private Buffer buffer;
     private int size;
     private int count;
-    public static int tareasRealizadas;
+    public static int tareasRealizadas, tareasProducidas;
     public static ArrayList<String> listaTareasRealizadas;
-    
-    
+    public static String [] bufferOccupied;    
+        
     
     public ProducerConsumer(int size, int rangeN, int rangeM, int producers, int consumers, int timeoutProducer, int timeoutConsumer){
         this.buffer = new Buffer(size);
         this.size = size;
         this.count = 0;
-        tareasRealizadas = 0;
+        tareasRealizadas = tareasProducidas = 0;
+        bufferOccupied= new String[size];
         listaTareasRealizadas = new ArrayList<String>();
         this.producers = new ArrayList<>();
         for(int i = 0; i<producers;i++){
-            this.producers.add(new Producer(buffer, rangeN, rangeM, timeoutProducer));
+            this.producers.add(new Producer(buffer, rangeN, rangeM, timeoutProducer, i));
             this.producers.get(i).start();
         }
         this.consumers = new ArrayList<>();
@@ -32,6 +33,11 @@ public class ProducerConsumer {
             this.consumers.add(new Consumer(buffer, timeoutConsumer, j));
             this.consumers.get(j).start();
         }
+        
+        for(String n : bufferOccupied){
+            n=null;
+        }
+        
         
     }
     
@@ -50,5 +56,8 @@ public class ProducerConsumer {
         System.out.println("El total de tareas realizadas fueron: " + tareasRealizadas);
         System.out.print("\n");
     }
+    
+    
+    
     
 }

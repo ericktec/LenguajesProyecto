@@ -38,19 +38,25 @@ public class Buffer {
         return product;
     }
     
-    synchronized void produce(String product) {
+    synchronized int produce(String product) {
+        
         while(this.index==this.buffer.length-1) {
             try {
                 wait();
+                
             } catch (InterruptedException ex) {
                 Logger.getLogger(Buffer.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         this.index++;
-        this.buffer[this.index] = product;
+        int positionBuffer = this.index;
+        this.buffer[positionBuffer] = product;
+        
+        
         
         
         notify();
+        return positionBuffer;
     }
     
     synchronized static void print(String string) {
