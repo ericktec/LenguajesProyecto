@@ -54,7 +54,7 @@ public class Buffer {
         this.index++;
         this.buffer[this.index] = product;
        
-        GUIFrame.addTasksPending(product, idProducer);
+        GUIFrame.addTasksPending(product, this.index);
         
         
         
