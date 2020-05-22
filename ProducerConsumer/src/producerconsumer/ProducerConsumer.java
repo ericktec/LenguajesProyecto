@@ -16,7 +16,7 @@ public class ProducerConsumer {
     
     
     
-    public ProducerConsumer(int size, int rangeN, int rangeM, int producers, int consumers, int timeoutProducer, int timeoutConsumer){
+    public ProducerConsumer(int producers, int consumers, int timeoutProducer, int timeoutConsumer, int rangeN, int rangeM, int size){
         this.buffer = new Buffer(size);
         this.size = size;
         this.count = 0;
@@ -43,9 +43,7 @@ public class ProducerConsumer {
         for(int j =0;j<this.consumers.size();j++){
             this.consumers.get(j).end();
         }
-        for(int i = 0; i < 30; i++) {
-            System.out.print("\n");
-        }
+        System.out.print("\n\n\n");
         System.out.println("Las tareas realizadas fueron: " + listaTareasRealizadas);
         System.out.println("El total de tareas realizadas fueron: " + tareasRealizadas);
         System.out.print("\n");
