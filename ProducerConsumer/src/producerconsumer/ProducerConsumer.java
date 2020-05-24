@@ -1,11 +1,10 @@
 
 package producerconsumer;
 import java.util.ArrayList;
+import org.jatha.Jatha;
 
 public class ProducerConsumer {
     
-    private Producer producer;
-    private Consumer consumer;
     private ArrayList<Producer> producers;
     private ArrayList<Consumer> consumers;
     private Buffer buffer;

@@ -1,7 +1,9 @@
 package producerconsumer;
 
+import java.awt.Color;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import org.jatha.dynatype.LispValue;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -32,6 +34,7 @@ public class GUIFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jToolBar1 = new javax.swing.JToolBar();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel2 = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
@@ -45,8 +48,8 @@ public class GUIFrame extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         valueN = new javax.swing.JSpinner();
-        jButton1 = new javax.swing.JButton();
-        StopButton = new javax.swing.JButton();
+        iniciarJButton = new javax.swing.JButton();
+        pararJButton = new javax.swing.JButton();
         timeoutProductor = new javax.swing.JSpinner();
         timeoutConsumidor = new javax.swing.JSpinner();
         bufferSize = new javax.swing.JSpinner();
@@ -60,42 +63,57 @@ public class GUIFrame extends javax.swing.JFrame {
         jProgressBar1 = new javax.swing.JProgressBar();
         contadorTareasRealizadas = new javax.swing.JSpinner();
 
+        jToolBar1.setRollover(true);
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
 
+        jPanel2.setBackground(new java.awt.Color(22, 60, 106));
+
+        jPanel1.setBackground(new java.awt.Color(22, 60, 106));
+        jPanel1.setForeground(new java.awt.Color(238, 238, 238));
+
+        jLabel5.setForeground(new java.awt.Color(238, 238, 238));
         jLabel5.setText("Tiempo de Espera (ms)");
 
+        jLabel6.setForeground(new java.awt.Color(238, 238, 238));
         jLabel6.setText("Rango de Valores (n, m)");
 
         valueM.setValue(1);
 
+        jLabel1.setForeground(new java.awt.Color(238, 238, 238));
         jLabel1.setText("Productores");
 
+        jLabel2.setForeground(new java.awt.Color(238, 238, 238));
         jLabel2.setText("Consumidores");
 
         producersValue.setValue(1);
 
         consumersValue.setValue(1);
 
+        jLabel3.setForeground(new java.awt.Color(238, 238, 238));
         jLabel3.setText("Tamaño del Buffer");
 
+        jLabel4.setForeground(new java.awt.Color(238, 238, 238));
         jLabel4.setText("Cantidad");
 
-        jButton1.setFont(new java.awt.Font("Courier New", 1, 24)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(0, 102, 51));
-        jButton1.setText("INICIAR");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        iniciarJButton.setFont(new java.awt.Font("Courier New", 1, 24)); // NOI18N
+        iniciarJButton.setForeground(new java.awt.Color(0, 102, 51));
+        iniciarJButton.setText("INICIAR");
+        iniciarJButton.setName(""); // NOI18N
+        iniciarJButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                iniciarJButtonActionPerformed(evt);
             }
         });
 
-        StopButton.setFont(new java.awt.Font("Courier New", 1, 24)); // NOI18N
-        StopButton.setForeground(new java.awt.Color(204, 0, 0));
-        StopButton.setText("PARAR");
-        StopButton.addActionListener(new java.awt.event.ActionListener() {
+        pararJButton.setFont(new java.awt.Font("Courier New", 1, 24)); // NOI18N
+        pararJButton.setForeground(new java.awt.Color(204, 0, 0));
+        pararJButton.setText("PARAR");
+        pararJButton.setName(""); // NOI18N
+        pararJButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                StopButtonActionPerformed(evt);
+                pararJButtonActionPerformed(evt);
             }
         });
 
@@ -120,11 +138,10 @@ public class GUIFrame extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(bufferSize, javax.swing.GroupLayout.DEFAULT_SIZE, 99, Short.MAX_VALUE)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 99, Short.MAX_VALUE)
-                        .addComponent(valueN, javax.swing.GroupLayout.DEFAULT_SIZE, 99, Short.MAX_VALUE)
-                        .addComponent(producersValue)
-                        .addComponent(consumersValue)))
+                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 99, Short.MAX_VALUE)
+                    .addComponent(valueN, javax.swing.GroupLayout.DEFAULT_SIZE, 99, Short.MAX_VALUE)
+                    .addComponent(producersValue)
+                    .addComponent(consumersValue))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(timeoutConsumidor, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -135,8 +152,8 @@ public class GUIFrame extends javax.swing.JFrame {
                 .addContainerGap())
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 414, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(StopButton, javax.swing.GroupLayout.PREFERRED_SIZE, 414, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(iniciarJButton, javax.swing.GroupLayout.PREFERRED_SIZE, 414, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(pararJButton, javax.swing.GroupLayout.PREFERRED_SIZE, 414, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -167,9 +184,9 @@ public class GUIFrame extends javax.swing.JFrame {
                     .addComponent(valueM, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(valueN, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(iniciarJButton, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
-                .addComponent(StopButton, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(pararJButton, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -179,7 +196,7 @@ public class GUIFrame extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 30, Short.MAX_VALUE))
+                .addGap(0, 68, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -187,6 +204,8 @@ public class GUIFrame extends javax.swing.JFrame {
         );
 
         jTabbedPane1.addTab("Configuración", jPanel2);
+
+        jPanel3.setBackground(new java.awt.Color(22, 60, 106));
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -209,8 +228,10 @@ public class GUIFrame extends javax.swing.JFrame {
         jTable2.setRowHeight(20);
         jScrollPane2.setViewportView(jTable2);
 
+        jLabel7.setForeground(new java.awt.Color(238, 238, 238));
         jLabel7.setText("Tareas por hacer");
 
+        jLabel8.setForeground(new java.awt.Color(238, 238, 238));
         jLabel8.setText("Tareas realizadas");
 
         jProgressBar1.setValue(50);
@@ -226,11 +247,12 @@ public class GUIFrame extends javax.swing.JFrame {
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, 185, Short.MAX_VALUE)
-                    .addComponent(contadorTareasRealizadas))
-                .addContainerGap(46, Short.MAX_VALUE))
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, 185, Short.MAX_VALUE)
+                        .addComponent(contadorTareasRealizadas))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(17, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -258,8 +280,8 @@ public class GUIFrame extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTabbedPane1)
-                .addContainerGap())
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 503, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -272,7 +294,7 @@ public class GUIFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void iniciarJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_iniciarJButtonActionPerformed
         // TODO add your handling code here:        
         int[] inputs = new int[7];
         inputs[0] = (int) this.producersValue.getValue();   //(1-10)
@@ -323,9 +345,12 @@ public class GUIFrame extends javax.swing.JFrame {
         if(this.pc != null){
             this.pc.stopProducerConsumer();
         }
+        
+        this.iniciarJButton.setText("REINICIAR");
+        this.pararJButton.setEnabled(true);
         // limpiar entradas de jtable tareas realizadas y por realizar
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {}, new String [] {"Id", "Operacion"}
+            new Object [][] {}, new String [] {"Id", "Operacion","Resultados"}
         ));
         jTable2.setRowHeight(20);
         jScrollPane2.setViewportView(jTable2); 
@@ -336,13 +361,14 @@ public class GUIFrame extends javax.swing.JFrame {
         jTable1.setRowHeight(20);
         jScrollPane1.setViewportView(jTable1); 
         this.pc = new ProducerConsumer(inputs[0], inputs[1], inputs[2], inputs[3], inputs[4], inputs[5], inputs[6]);
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_iniciarJButtonActionPerformed
 
-    public static void addTasksCompleted(String product, int id){
+    public static void addTasksCompleted(String product, int id, LispValue result){
         DefaultTableModel model =  (DefaultTableModel) GUIFrame.jTable2.getModel();
-        Object newRow[] = new Object[2];
+        Object newRow[] = new Object[3];
         newRow[0] = id;
         newRow[1] = product;
+        newRow[2] = result;
         model.addRow(newRow);
         GUIFrame.contadorTareasRealizadas.setValue(ProducerConsumer.tareasRealizadas + 1);
     }
@@ -372,10 +398,12 @@ public class GUIFrame extends javax.swing.JFrame {
         jProgressBar1.setValue(n);
     }
     
-    private void StopButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_StopButtonActionPerformed
+    private void pararJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pararJButtonActionPerformed
         this.pc.stopProducerConsumer();
         this.pc = null;
-    }//GEN-LAST:event_StopButtonActionPerformed
+        this.pararJButton.setEnabled(false);
+        this.iniciarJButton.setText("INICIAR");
+    }//GEN-LAST:event_pararJButtonActionPerformed
 
 
     /**
@@ -410,16 +438,17 @@ public class GUIFrame extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new GUIFrame().setVisible(true);
+                pararJButton.setEnabled(false);
+                jTabbedPane1.setBackground(new Color(22,60,106));
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton StopButton;
     private javax.swing.JSpinner bufferSize;
     private javax.swing.JSpinner consumersValue;
     private static javax.swing.JSpinner contadorTareasRealizadas;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton iniciarJButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -434,9 +463,11 @@ public class GUIFrame extends javax.swing.JFrame {
     private static javax.swing.JProgressBar jProgressBar1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTabbedPane jTabbedPane1;
+    private static javax.swing.JTabbedPane jTabbedPane1;
     private static javax.swing.JTable jTable1;
     private static javax.swing.JTable jTable2;
+    private javax.swing.JToolBar jToolBar1;
+    private static javax.swing.JButton pararJButton;
     private javax.swing.JSpinner producersValue;
     private javax.swing.JSpinner timeoutConsumidor;
     private javax.swing.JSpinner timeoutProductor;
